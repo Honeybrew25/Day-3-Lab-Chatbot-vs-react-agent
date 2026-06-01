@@ -9,10 +9,15 @@ class IndustryLogger:
     Structured logger that simulates industry practices.
     Logs to both console and a file in JSON format.
     """
-    def __init__(self, name: str = "AI-Lab-Agent", log_dir: str = "logs"):
+    def __init__(self, name: str = "AI-Lab-Agent", log_dir: str = None):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.INFO)
         
+        # Nếu không truyền log_dir, tự động lấy thư mục gốc của dự án làm chuẩn
+        if log_dir is None:
+            project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            log_dir = os.path.join(project_root, "logs")
+
         if not os.path.exists(log_dir):
             os.makedirs(log_dir)
 
